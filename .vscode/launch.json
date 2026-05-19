@@ -15,6 +15,16 @@
       "skipFiles": [
         "<node_internals>/**"
       ]
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-PaymentGeneratorApplication<payment-generator>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.srikant.kafka.paymentgenerator.PaymentGeneratorApplication",
+      "projectName": "payment-generator",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
