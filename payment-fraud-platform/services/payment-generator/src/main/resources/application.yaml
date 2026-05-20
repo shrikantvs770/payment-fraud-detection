@@ -1,14 +1,12 @@
 spring:
     kafka:
         bootstrap-servers: localhost:29092
-
         producer:
             key-serializer: org.apache.kafka.common.serialization.StringSerializer
-
-            value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+            value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
     application:
         name: payment-generator
 
 
 server:
-    port: 8081
+    port: 8086
