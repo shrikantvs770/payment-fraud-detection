@@ -19,5 +19,13 @@ spring:
         spring.json.type.mapping: com.srikant.kafka.paymentgenerator.model.PaymentEvent:com.srikant.frauddetector.model.PaymentEvent
         spring.json.value.default.type: com.srikant.frauddetector.model.PaymentEvent
 
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+
+      properties:
+        spring.json.add.type.headers: false
+
     application:
-        name: fraud-detector
+      name: fraud-detector

@@ -6,7 +6,5 @@ spring:
             value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
     application:
         name: payment-generator
-
-
 server:
     port: 8086

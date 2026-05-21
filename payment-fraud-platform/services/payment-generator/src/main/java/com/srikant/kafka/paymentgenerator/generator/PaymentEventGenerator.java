@@ -4,11 +4,14 @@ import com.srikant.kafka.paymentgenerator.model.PaymentEvent;
 import com.srikant.kafka.paymentgenerator.producer.PaymentProducer;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.Random;
 import java.util.UUID;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 
 @Component
 @RequiredArgsConstructor
@@ -35,7 +38,8 @@ public class PaymentEventGenerator {
             "DE"
     };
 
-    @PostConstruct
+    // @PostConstruct
+    @EventListener(ApplicationReadyEvent.class)
     public void startGenerating() {
 
         new Thread(() -> {
