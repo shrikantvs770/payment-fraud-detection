@@ -14,28 +14,24 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FraudDetectorConsumer {
 
-
     private final FraudAlertProducer fraudAlertProducer;
 
     @KafkaListener(topics = "payments", groupId = "fraud-detector-group", concurrency = "3")
-    public void consume(PaymentEvent paymentEvent) throws Exception{
+    public void consume(PaymentEvent paymentEvent) throws Exception {
 
-       log.info("Checking payment: {}", paymentEvent);
-       if(paymentEvent.getAmount() > 90000) {
-           FraudAlert fraudAlert = FraudAlert.builder()
-                   .transactionId(paymentEvent.getTransactionId())
-                   .cardId(paymentEvent.getCardId())
-                   .amount(paymentEvent.getAmount())
-                   .reason("HIGH AMOUNT")
-                   .detectedAt(java.time.Instant.now())
-                   .build();
+        log.info("Checking payment: {}", paymentEvent);
+        if (paymentEvent.getAmount() > 90000) {
+            FraudAlert fraudAlert = FraudAlert.builder()
+                    .transactionId(paymentEvent.getTransactionId())
+                    .cardId(paymentEvent.getCardId())
+                    .amount(paymentEvent.getAmount())
+                    .reason("HIGH AMOUNT")
+                    .detectedAt(java.time.Instant.now())
+                    .build();
 
             fraudAlertProducer.sendFraudAlert(fraudAlert);
 
-       }
-
-
-
+        }
 
     }
 }

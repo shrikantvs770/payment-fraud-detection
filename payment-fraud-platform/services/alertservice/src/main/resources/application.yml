@@ -1,0 +1,16 @@
+server:
+    port: 8083
+
+spring:
+    application:
+        name: alertservice
+    kafka:
+        bootstrap-servers: localhost:29092
+        consumer:
+            group-id: alert-service-group
+            auto-offset-reset: latest
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+            properties:
+                spring.json.trusted.packages: "*"
+                spring.json.value.default.type: com.srikant.alertservice.model.FraudAlert #spring.json.add.type.headers: false in fraud-detector Producer
