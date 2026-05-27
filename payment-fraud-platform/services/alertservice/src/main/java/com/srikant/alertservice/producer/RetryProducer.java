@@ -18,6 +18,7 @@ public class RetryProducer {
     private final KafkaTemplate<String, FraudAlert> kafkaTemplate;
 
     public void sendToRetry(FraudAlert fraudAlert) {
+        fraudAlert.setRetryCount(fraudAlert.getRetryCount()+1);
         kafkaTemplate.send("fraud-alerts-retry", fraudAlert.getCardId(), fraudAlert);
         log.warn("Sent to RETRY topic {}", fraudAlert);
     }

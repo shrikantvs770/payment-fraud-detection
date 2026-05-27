@@ -22,4 +22,6 @@ public class FraudAlert {
     private String reason;
 
     private Instant detectedAt;
+
+    private Integer retryCount;
 }

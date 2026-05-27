@@ -22,20 +22,15 @@ public class AlertConsumer {
     @KafkaListener(topics = "fraud-alerts", groupId = "alert-service-group")
     public void consume(FraudAlert fraudAlert) {
 
-        // try {
-        //     if (random.nextInt(10) < 3) {
-        //         throw new RuntimeException("Simulated alert-service failure");
-        //     }
-        //     log.error("FRAUD ALERT RECEIVED {}", fraudAlert);
-        // } catch (Exception e) {
-        //     log.error("Processing failed: {}", fraudAlert);
-        //     retryProducer.sendToRetry(fraudAlert);
-        // }
-
-        // if(random.nextInt(10) < 5)
-            throw new RuntimeException("Simulated alert-service failure");
-
-        // else
-            // log.info("Fraud Alert Consumed {}", fraudAlert);
+        try {
+            if (random.nextInt(10) < 8) {
+                throw new RuntimeException("Simulated alert-service failure");
+            }
+            log.error("FRAUD ALERT RECEIVED {}", fraudAlert);
+        } catch (Exception e) {
+            log.error("Processing failed: {}", fraudAlert);
+            retryProducer.sendToRetry(fraudAlert);
+        }
+    
     }
 }

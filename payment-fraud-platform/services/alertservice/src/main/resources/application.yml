@@ -6,6 +6,11 @@ spring:
         name: alertservice
     kafka:
         bootstrap-servers: localhost:29092
+        producer:
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+            properties:
+                spring.json.add.type.headers: true
         consumer:
             group-id: alert-service-group
             auto-offset-reset: latest
@@ -13,4 +18,4 @@ spring:
             value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
             properties:
                 spring.json.trusted.packages: "*"
-                spring.json.value.default.type: com.srikant.alertservice.model.FraudAlert #spring.json.add.type.headers: false in fraud-detector Producer
+                spring.json.value.default.type: com.srikant.alertservice.model.FraudAlert

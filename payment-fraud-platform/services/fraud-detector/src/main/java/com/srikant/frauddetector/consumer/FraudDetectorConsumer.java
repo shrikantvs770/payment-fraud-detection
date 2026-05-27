@@ -27,6 +27,7 @@ public class FraudDetectorConsumer {
                     .amount(paymentEvent.getAmount())
                     .reason("HIGH AMOUNT")
                     .detectedAt(java.time.Instant.now())
+                    .retryCount(0)
                     .build();
 
             fraudAlertProducer.sendFraudAlert(fraudAlert);
