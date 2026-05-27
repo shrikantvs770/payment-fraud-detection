@@ -19,7 +19,8 @@ public class FraudDetectorConsumer {
     @KafkaListener(topics = "payments", groupId = "fraud-detector-group", concurrency = "3")
     public void consume(PaymentEvent paymentEvent) throws Exception {
 
-        log.info("Checking payment: {}", paymentEvent);
+        // log.info("Checking payment: {}", paymentEvent);
+        
         if (paymentEvent.getAmount() > 90000) {
             FraudAlert fraudAlert = FraudAlert.builder()
                     .transactionId(paymentEvent.getTransactionId())

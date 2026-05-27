@@ -59,7 +59,7 @@ public class PaymentEventGenerator {
                 paymentProducer.sendPayment(event);
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(5);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }

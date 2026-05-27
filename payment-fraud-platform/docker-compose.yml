@@ -56,6 +56,8 @@ services:
       - "9090:9090"
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
 
   grafana:
     image: grafana/grafana:latest

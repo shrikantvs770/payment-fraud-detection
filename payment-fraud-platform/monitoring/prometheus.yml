@@ -6,3 +6,24 @@ scrape_configs:
 
     static_configs:
       - targets: ['prometheus:9090']
+
+  - job_name: payment-generator
+    metrics_path: /actuator/prometheus
+
+    static_configs:
+      - targets:
+          - host.docker.internal:8086
+
+  - job_name: alert-service
+    metrics_path: /actuator/prometheus
+
+    static_configs:
+      - targets:
+          - host.docker.internal:8083
+
+  - job_name: fraud-detector
+    metrics_path: /actuator/prometheus
+
+    static_configs:
+      - targets:
+          - host.docker.internal:8082

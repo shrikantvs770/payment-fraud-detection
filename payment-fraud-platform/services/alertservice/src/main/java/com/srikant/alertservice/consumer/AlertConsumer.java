@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -18,15 +20,24 @@ public class AlertConsumer {
 
     private final Random random = new Random();
     private final RetryProducer retryProducer;
+    private final Set<String> processedTransactions = ConcurrentHashMap.newKeySet();
 
-    @KafkaListener(topics = "fraud-alerts", groupId = "alert-service-group")
-    public void consume(FraudAlert fraudAlert) {
+    @KafkaListener(topics = "fraud-alerts", groupId = "alert-service-group", concurrency = "3")
+    public void consume(FraudAlert fraudAlert) throws Exception{
+
+        if(processedTransactions.contains(fraudAlert.getTransactionId())){
+            log.warn("DUPLICATE ALERT SKIPPED {}", fraudAlert.getTransactionId());
+            return;
+        }
+
+        Thread.sleep(5000);
 
         try {
             if (random.nextInt(10) < 8) {
                 throw new RuntimeException("Simulated alert-service failure");
             }
             log.error("FRAUD ALERT RECEIVED {}", fraudAlert);
+            processedTransactions.add(fraudAlert.getTransactionId()); // after success add to processedTransactions
         } catch (Exception e) {
             log.error("Processing failed: {}", fraudAlert);
             retryProducer.sendToRetry(fraudAlert);

@@ -19,3 +19,18 @@ spring:
             properties:
                 spring.json.trusted.packages: "*"
                 spring.json.value.default.type: com.srikant.alertservice.model.FraudAlert
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health,prometheus
+
+    endpoint:
+        health:
+            show-details: always
+
+    prometheus:
+        metrics:
+            export:
+                enabled: true
