@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: myproducer
+  kafka:
+    # 1. Where is the Kafka cluster?
+    bootstrap-servers: localhost:29092
+    
+    producer:
+      # 2. How should data be serialized before sending over the network?
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+      properties:
+        linger.ms: 5000
+        batch.size: 16384
+        compression.type: gzip
+        
+      
+
+server:
+  port: 8099
+
+logging:
+  level:
+    org.springframework.kafka.core.KafkaTemplate: DEBUG

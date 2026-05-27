@@ -2,6 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "MyproducerApplication",
+      "request": "launch",
+      "mainClass": "com.example.myproducer.MyproducerApplication",
+      "projectName": "myproducer",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=41989 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=myproducer"
+    },
+    {
       "name": "Run application",
       "type": "node",
       "request": "launch",
@@ -23,6 +31,27 @@
       "cwd": "${workspaceFolder}",
       "mainClass": "com.srikant.kafka.paymentgenerator.PaymentGeneratorApplication",
       "projectName": "payment-generator",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=40979 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=payment-generator"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-FraudDetectorApplication<fraud-detector>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.srikant.frauddetector.FraudDetectorApplication",
+      "projectName": "fraud-detector",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-MyconsumerApplication<myconsumer>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.myconsumer.MyconsumerApplication",
+      "projectName": "myconsumer",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
     }

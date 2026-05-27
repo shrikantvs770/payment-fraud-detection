@@ -4,6 +4,8 @@ spring:
         producer:
             key-serializer: org.apache.kafka.common.serialization.StringSerializer
             value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+            properties:
+                spring.json.type.mapping: paymentToken:com.srikant.kafka.paymentgenerator.model.PaymentEvent #in the message header there will be paymentToken
     application:
         name: payment-generator
 server:
