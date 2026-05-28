@@ -39,7 +39,8 @@ public class AlertConsumer {
                 }
                 log.error("FRAUD ALERT RECEIVED {}", fraudAlert);
             } catch (Exception e) {
-                processedTransactions.remove(txId); // in the if condition data is added. We remove it because Hey for this transaction exception was thrown.
+                processedTransactions.remove(txId); // in the if condition data is added. We remove it because Hey for
+                                                    // this transaction exception was thrown.
                 log.error("Processing failed: {}", fraudAlert);
                 retryProducer.sendToRetry(fraudAlert);
             }
