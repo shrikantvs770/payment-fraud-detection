@@ -23,25 +23,27 @@ public class AlertConsumer {
     private final Set<String> processedTransactions = ConcurrentHashMap.newKeySet();
 
     @KafkaListener(topics = "fraud-alerts", groupId = "alert-service-group", concurrency = "3")
-    public void consume(FraudAlert fraudAlert) throws Exception{
+    public void consume(FraudAlert fraudAlert) throws Exception {
 
-        if(processedTransactions.contains(fraudAlert.getTransactionId())){
+        String txId = fraudAlert.getTransactionId();
+        if (!processedTransactions.add(txId)) {
+
             log.warn("DUPLICATE ALERT SKIPPED {}", fraudAlert.getTransactionId());
             return;
-        }
+        } else {
+            Thread.sleep(5000);
 
-        Thread.sleep(5000);
-
-        try {
-            if (random.nextInt(10) < 8) {
-                throw new RuntimeException("Simulated alert-service failure");
+            try {
+                if (random.nextInt(10) < 8) {
+                    throw new RuntimeException("Simulated alert-service failure");
+                }
+                log.error("FRAUD ALERT RECEIVED {}", fraudAlert);
+            } catch (Exception e) {
+                processedTransactions.remove(txId); // in the if condition data is added. We remove it because Hey for this transaction exception was thrown.
+                log.error("Processing failed: {}", fraudAlert);
+                retryProducer.sendToRetry(fraudAlert);
             }
-            log.error("FRAUD ALERT RECEIVED {}", fraudAlert);
-            processedTransactions.add(fraudAlert.getTransactionId()); // after success add to processedTransactions
-        } catch (Exception e) {
-            log.error("Processing failed: {}", fraudAlert);
-            retryProducer.sendToRetry(fraudAlert);
         }
-    
+
     }
 }
