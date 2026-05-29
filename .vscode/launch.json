@@ -3,6 +3,12 @@
   "configurations": [
     {
       "type": "java",
+      "name": "SpringKafkaManualAckDemoApplication",
+      "request": "launch",
+      "mainClass": "com.example.kafka.SpringKafkaManualAckDemoApplication"
+    },
+    {
+      "type": "java",
       "name": "MyproducerApplication",
       "request": "launch",
       "mainClass": "com.example.myproducer.MyproducerApplication",

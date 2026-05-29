@@ -23,7 +23,7 @@ public class MyproducerApplication implements CommandLineRunner {
 	@Bean
 	NewTopic createNewtopic() {
 		return TopicBuilder.name("apnatopic")
-				.partitions(6)
+				.partitions(1)
 				.build();
 	}
 
@@ -56,25 +56,24 @@ public class MyproducerApplication implements CommandLineRunner {
 		// log.info("sent...");
 		// Thread.sleep(500);
 
-String[] users = {
-    "user-1", "user-2", "user-3",
-    "user-4", "user-5", "user-6",
-    "user-7", "user-8", "user-9",
-    "user-10"
-};
+		String[] users = {
+				"user-1", "user-2", "user-3",
+				"user-4", "user-5", "user-6",
+				"user-7", "user-8", "user-9",
+				"user-10"
+		};
 
-Random random = new Random();
+		Random random = new Random();
 
-for (int i = 0; i < 500000; i++) {
+		for (int i = 0; i < 5; i++) {
 
-    String userId = users[random.nextInt(users.length)];
+			String userId = users[random.nextInt(users.length)];
 
-    kafkaTemplate.send(
-        "apnatopic",
-        userId,
-        payload
-    );
-}
+			kafkaTemplate.send(
+					"apnatopic",
+					userId,
+					payload);
+		}
 
 		System.out.println("done");
 
