@@ -1,0 +1,31 @@
+server:
+  port: 0 #random port
+
+spring:
+  application:
+    name: spring-kafka-linger-batch-compression-demo
+  kafka:
+    bootstrap-servers: "localhost:29092"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+      properties:
+        linger.ms: 5000
+        batch.size: 1048576
+        buffer.memory: 33554432
+        compression.type: gzip
+        max.request.size: 1048576
+    consumer:
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      properties:
+        spring.json.value.default.type: com.example.kafka.Student
+
+logging:
+  level:
+    org.apache.kafka.clients.producer.internals.RecordAccumulator: TRACE
+    org.apache.kafka.clients.producer.internals.Sender: TRACE
+    org.apache.kafka.clients.NetworkClient: TRACE
+    org.springframework.kafka: DEBUG
+        
