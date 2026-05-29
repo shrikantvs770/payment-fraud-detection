@@ -12,6 +12,7 @@ spring:
         
     
     consumer:
+      auto-offset-reset: latest
       
       key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
