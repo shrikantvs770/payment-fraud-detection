@@ -1,5 +1,7 @@
 package com.example.kafka;
 
+import java.util.Random;
+
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
@@ -12,9 +14,22 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MyConsumer {
 
+
+
     @KafkaListener(topics = "mytopic", groupId = "my-group-id")
     public void consume(Student student, Acknowledgment acknowledgment) {
         log.info("Consumed student {}", student);
+
+
+        Random random = new Random();
+
+        if(random.nextInt(10)< 8)
+            {
+                log.error("Something bad happend, will retry..."); // by default spring boot kafka will retry 9 times and then give up
+                throw new RuntimeException("Oops simulated failure");
+            }
+
+        // Okay I'm happy with the process, lets move offset forward.
         acknowledgment.acknowledge();
     }
 
