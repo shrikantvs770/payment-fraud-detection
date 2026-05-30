@@ -10,11 +10,11 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
       value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
       properties:
-        linger.ms: 5000
-        batch.size: 1048576
+        linger.ms: 10
+        batch.size: 16084
         buffer.memory: 33554432
         compression.type: gzip
-        max.request.size: 1048576
+        max.request.size: 2097152
     consumer:
       auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer

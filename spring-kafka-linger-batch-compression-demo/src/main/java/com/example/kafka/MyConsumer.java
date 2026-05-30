@@ -18,7 +18,7 @@ public class MyConsumer {
 
 
 
-    @KafkaListener(topics = "mytopic", groupId = "my-group-id")
+    @KafkaListener(topics = "mytopic", groupId = "my-group-id-x")
     public void consume(Student student) {
         log.info("Consumed student {}", student);
     }

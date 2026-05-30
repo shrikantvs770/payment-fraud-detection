@@ -40,15 +40,15 @@ public class SpringApacheKafkaBatchingDemo implements CommandLineRunner {
 		String[] addresses = new String[]{"Bangalore", "New Delhi", "New York", "Paris"};
 
 		// send a demo burst to show linger/ms-based batching clearly
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < 50000; i++) {
 			Student student = Student.builder()
 					.name(names[random.nextInt(names.length)])
-					.id(0)
+					.id(i)
 					.address(addresses[random.nextInt(addresses.length)])
 					.build();
 
-			myProducer.sendMessage(TOPIC_NAME, 0, student);
-			Thread.sleep(50);
+			myProducer.sendMessage(TOPIC_NAME, student);
+			// Thread.sleep(1000);
 		}
 		log.info("Sent demo burst of messages to show producer batching.");
 	}
