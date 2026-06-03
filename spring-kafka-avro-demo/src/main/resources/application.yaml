@@ -13,7 +13,6 @@ spring:
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
 
 
-
     consumer:
       group-id: avro-consumer-group
       auto-offset-reset: latest
