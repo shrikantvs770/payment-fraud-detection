@@ -3,6 +3,7 @@ package com.example.kafka;
 import java.util.Random;
 
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.common.config.TopicConfig;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +28,7 @@ public class SpringKafkaManualAckDemoApplication implements CommandLineRunner {
 	NewTopic topic() {
 		return TopicBuilder.name(TOPIC_NAME)
 				.partitions(3)
+				.config(TopicConfig.MIN_IN_SYNC_REPLICAS_CONFIG, "3") // We have 3 brokers see the docker compose file
 				.replicas(3)
 				.compact().build();
 	}
@@ -37,16 +39,20 @@ public class SpringKafkaManualAckDemoApplication implements CommandLineRunner {
 
 	public void run(String... args) throws Exception {
 
+		log.info("started....");
 		String[] names = new String[] { "Elias", "Rhea", "Edge", "Cena", "Undertaker" };
 
 		// send 5 student details
 		for (int i = 0; i < 5; i++) {
 			Student student = Student.builder()
-					.name(names[random.nextInt(names.length - 1)])
+					.name(names[i])
 					.id(random.nextInt(10) + random.nextInt(20))
 					.build();
 
+					
+			log.info("Will send Student {}  ", student);
 			myProducer.sendMessage(TOPIC_NAME, student);
+			Thread.sleep(30000);
 		}
 
 	}

@@ -5,22 +5,12 @@ spring:
   application:
     name: spring-kafka-manual-ack-demo
   kafka:
-    bootstrap-servers: "http://localhost:29092"
+    bootstrap-servers: "localhost:29092, localhost:29093, localhost:29094"
     producer:
       key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
       value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
-        
-    
-    consumer:
-      auto-offset-reset: latest
-      
-      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+
+      acks: all
+      retries: 2147483647
       properties:
-        spring.json.value.default.type: com.example.kafka.Student #this adds to the spring.json.trusted.packages also
-
-      enable-auto-commit: false
-    listener:
-      ack-mode: MANUAL
-
-        
+        enable.idempotence: true

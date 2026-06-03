@@ -16,6 +16,6 @@ public class MyProducer {
 
         kafkaTemplate.send(topicName, student.getId(), student);
 
-        log.info("Student {} detail sent suceessfully ", student.getId());
+        // log.info("Student {} detail sent suceessfully ", student.getId());
     }
 }
