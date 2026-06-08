@@ -43,17 +43,17 @@ public class SpringKafkaManualAckDemoApplication implements CommandLineRunner {
 		String[] names = new String[] { "Elias", "Rhea", "Edge", "Cena", "Undertaker" };
 
 		// send 5 student details
-		for (int i = 0; i < 5; i++) {
+		
 			Student student = Student.builder()
-					.name(names[i])
+					.name(names[random.nextInt(5)])
 					.id(random.nextInt(10) + random.nextInt(20))
 					.build();
 
 					
 			log.info("Will send Student {}  ", student);
 			myProducer.sendMessage(TOPIC_NAME, student);
-			Thread.sleep(30000);
-		}
+	
+		
 
 	}
 }

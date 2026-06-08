@@ -9,8 +9,10 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
       value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
-
       acks: all
-      retries: 2147483647
       properties:
-        enable.idempotence: true
+        request.timeout.ms: 5000
+        delivery.timeout.ms: 120000
+        retry.backoff.ms: 100           # Wait 5 seconds between retries
+        retry.backoff.max.ms: 3000   # Max backoff cap
+                  # Small batch window

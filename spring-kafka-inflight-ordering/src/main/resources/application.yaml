@@ -1,0 +1,16 @@
+server:
+  port: 0 #random port
+
+spring:
+  application:
+    name: spring-kafka-manual-ack-demo
+  kafka:
+    bootstrap-servers: "localhost:29092, localhost:29093, localhost:29094"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        max.in.flight.requests.per.connection: 5
+        enable.idempotence: false
+      retries: 5
+      acks: all
